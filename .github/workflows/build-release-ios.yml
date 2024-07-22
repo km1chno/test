@@ -10,14 +10,14 @@ jobs:
       build-exists: ${{ steps.ios-release-restore.outputs.cache-hit }}
     steps:
       - name: 🐛 Try to restore build from cache
-        id: ios-debug-restore
+        id: ios-release-restore
         uses: actions/cache/restore@v4
         with:
           path: ios-release-build/
           key: ios-release-build
           lookup-only: true
 
-  build-debug-ios:
+  build-release-ios:
     needs: lookup-cached-build 
     if: needs.lookup-cached-build.outputs.build-exists != 'true'
     runs-on: macos-latest
@@ -42,7 +42,7 @@ jobs:
           mv ios/build/Build/Products/Release-iphonesimulator/clicitestapp.app ios-release-build/ios-release.app
 
       - name: 📡 Store built app in cache
-        id: ios-debug-save
+        id: ios-release-save
         uses: actions/cache/save@v4
         with:
           path: ios-release-build/
