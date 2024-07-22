@@ -17,6 +17,14 @@ jobs:
       - name: 📦 Install dependencies
         run: yarn install
 
+      - name: 📦 Install macOS dependencies
+        run: |
+          brew tap wix/brew
+          brew install applesimutils
+        env:
+          HOMEBREW_NO_AUTO_UPDATE: 1
+          HOMEBREW_NO_INSTALL_CLEANUP: 1
+
       - name: 🐛 Try to restore build from cache
         id: ios-debug-restore
         uses: actions/cache/restore@v4
