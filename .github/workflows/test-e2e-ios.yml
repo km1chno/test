@@ -1,0 +1,29 @@
+name: Test Detox iOS
+
+on: [pull_request]
+
+jobs:
+  build-debug-ios:
+    uses: ./.github/workflows/build-debug-ios.yml
+
+  test-detox-ios:
+    runs-on: macos-latest
+    needs: [build-debug-ios]
+    timeout-minutes: 60
+    steps:
+      - name: 🏗 Checkout repository
+        uses: actions/checkout@v4
+
+      - name: 📦 Install dependencies
+        run: yarn install
+
+      - name: 🐛 Try to restore build from cache
+        id: ios-debug-restore
+        uses: actions/cache/restore@v4
+        with:
+          path: ios-debug-build/
+          key: ios-debug-build
+
+      - name: 📋 Run Detox tests
+        run: |
+          yarn start & yarn detox:test:ios; x=$?; kill -9 $(pgrep -f "[n]ode_modules/.bin/expo.start") || true; exit $x

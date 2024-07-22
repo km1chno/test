@@ -1,0 +1,70 @@
+/** @type {Detox.DetoxConfig} */
+module.exports = {
+	testRunner: {
+		args: {
+			$0: "jest",
+			config: "e2e/jest.config.js",
+		},
+		jest: {
+			setupTimeout: 120000,
+		},
+	},
+	apps: {
+		"ios.debug": {
+			type: "ios.app",
+			binaryPath: "ios-debug-build/ios-debug.app",
+		},
+		"ios.release": {
+			type: "ios.app",
+			binaryPath: "artifacts/ios-release.app",
+		},
+		"android.debug": {
+			type: "android.apk",
+			binaryPath: "android-debug-build/android-debug.apk",
+			testBinaryPath: "android-debug-build/android-debug-test.apk",
+			reversePorts: [8081],
+		},
+		"android.release": {
+			type: "android.apk",
+			binaryPath: "artifacts/android-release.app",
+		},
+	},
+	devices: {
+		simulator: {
+			type: "ios.simulator",
+			device: {
+				type: "iPhone 15 Pro",
+			},
+		},
+		attached: {
+			type: "android.attached",
+			device: {
+				adbName: ".*",
+			},
+		},
+		emulator: {
+			type: "android.emulator",
+			device: {
+				avdName: "e2e_emulator",
+			},
+		},
+	},
+	configurations: {
+		"ios.sim.debug": {
+			device: "simulator",
+			app: "ios.debug",
+		},
+		"ios.sim.release": {
+			device: "simulator",
+			app: "ios.release",
+		},
+		"android.emu.debug": {
+			device: "emulator",
+			app: "android.debug",
+		},
+		"android.emu.release": {
+			device: "emulator",
+			app: "android.release",
+		},
+	},
+}
