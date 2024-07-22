@@ -8,7 +8,7 @@ jobs:
 
   test-detox-ios:
     runs-on: macos-latest
-    needs: [build-debug-ios]
+    needs: [build-release-ios]
     timeout-minutes: 60
     steps:
       - name: 🏗 Checkout repository
