@@ -3,25 +3,16 @@ name: Test Detox iOS
 on: [pull_request]
 
 jobs:
-  build-debug-ios:
-    uses: ./.github/workflows/build-debug-ios.yml
+  build-release-ios:
+    uses: ./.github/workflows/build-release-ios.yml
 
   test-detox-ios:
-    runs-on: macos-14
+    runs-on: macos-latest
     needs: [build-debug-ios]
     timeout-minutes: 60
     steps:
       - name: 🏗 Checkout repository
         uses: actions/checkout@v4
-
-      - name: Use Node.js 18
-        uses: actions/setup-node@v4
-        with:
-          node-version: 18
-          cache: 'yarn'
-
-      - name: Print node version 
-        run: node --version
 
       - name: 📦 Install dependencies
         run: yarn install
@@ -35,14 +26,12 @@ jobs:
           HOMEBREW_NO_INSTALL_CLEANUP: 1
 
       - name: 🐛 Try to restore build from cache
-        id: ios-debug-restore
+        id: ios-release-restore
         uses: actions/cache/restore@v4
         with:
-          path: ios-debug-build/
-          key: ios-debug-build
+          path: ios-release-build/
+          key: ios-release-build
 
       - name: 📋 Run Detox tests
         run: |
-          yarn start & sleep 20; yarn detox:test:ios; x=$?; kill -9 $(pgrep -f "[n]ode_modules/.bin/expo.start") || true; exit $x
-        env:
-          NODE_OPTIONS: --dns-result-order=ipv4first
+          yarn detox:test:ios

@@ -16,7 +16,7 @@ module.exports = {
 		},
 		"ios.release": {
 			type: "ios.app",
-			binaryPath: "artifacts/ios-release.app",
+			binaryPath: "ios-release-build/ios-release.app"
 		},
 		"android.debug": {
 			type: "android.apk",
@@ -33,7 +33,7 @@ module.exports = {
 		simulator: {
 			type: "ios.simulator",
 			device: {
-				type: "iPhone 14",
+				type: "iPhone 15 Pro",
 			},
 		},
 		attached: {
