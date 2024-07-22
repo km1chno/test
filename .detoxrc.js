@@ -12,8 +12,7 @@ module.exports = {
 	apps: {
 		"ios.debug": {
 			type: "ios.app",
-			binaryPath: "ios-debug-build/ios-debug.app",
-			reversePorts: [8081],
+			binaryPath: "ios-debug-build/ios-debug.app"
 		},
 		"ios.release": {
 			type: "ios.app",
