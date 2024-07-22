@@ -11,7 +11,7 @@
     "build:debug:ios": "npx expo prebuild && xcodebuild -workspace ios/clicitestapp.xcworkspace -scheme clicitestapp -configuration Debug -sdk iphonesimulator -derivedDataPath ios/build",
     "build:debug:android": "npx expo prebuild && cd android && ./gradlew assembleDebug assembleAndroidTest -DtestBuildType=debug",
     "detox:test:android": "detox test --configuration android.emu.debug",
-    "detox:test:ios": "detox test --configuration ios.sim.debug --headless --cleanup --record-logs all",
+    "detox:test:ios": "detox test --configuration ios.sim.debug --headless --cleanup --record-logs all --loglevel verbose",
     "prebuild:clean": "rm -rf ios/ android/"
   },
   "dependencies": {
