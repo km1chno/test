@@ -20,6 +20,9 @@ jobs:
           node-version: 18
           cache: 'yarn'
 
+      - name: Print node version 
+        run: node --version
+
       - name: 📦 Install dependencies
         run: yarn install
 
@@ -40,4 +43,6 @@ jobs:
 
       - name: 📋 Run Detox tests
         run: |
-          yarn start & sleep 20; NODE_OPTIONS='--dns-result-order=ipv4first yarn detox:test:ios; x=$?; kill -9 $(pgrep -f "[n]ode_modules/.bin/expo.start") || true; exit $x
+          yarn start & sleep 20; yarn detox:test:ios; x=$?; kill -9 $(pgrep -f "[n]ode_modules/.bin/expo.start") || true; exit $x
+        env:
+          NODE_OPTIONS: --dns-result-order=ipv4first

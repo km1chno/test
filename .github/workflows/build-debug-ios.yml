@@ -33,9 +33,6 @@ jobs:
         with:
           xcode-version: latest-stable
 
-      - name: Print xcode version
-        run: /usr/bin/xcodebuild -version
-
       - name: 🛠️ Build
         run: yarn build:debug:ios
 
