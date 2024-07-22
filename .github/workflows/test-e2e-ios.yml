@@ -32,12 +32,6 @@ jobs:
           path: ios-debug-build/
           key: ios-debug-build
 
-      - name: Print devices 
-        run: applesimutils --list
-
-      - name: Print iPhone 15 Pro devices 
-        run: applesimutils --list | grep 'iPhone 15 Pro'
-
       - name: 📋 Run Detox tests
         run: |
-          yarn start & yarn detox:test:ios; x=$?; kill -9 $(pgrep -f "[n]ode_modules/.bin/expo.start") || true; exit $x
+          yarn start & sleep 20; yarn detox:test:ios; x=$?; kill -9 $(pgrep -f "[n]ode_modules/.bin/expo.start") || true; exit $x
